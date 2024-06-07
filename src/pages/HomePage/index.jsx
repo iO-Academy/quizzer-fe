@@ -12,6 +12,7 @@ function HomePage() {
     const [quizError, setQuizError] = useState(false);
 
     const [addingQuiz, setAddingQuiz] = useState(false)
+    const [addingQuizError, setAddingQuizError] = useState(false)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
@@ -45,6 +46,9 @@ function HomePage() {
                 getQuizzes()
                 setAddingQuiz(false)
             })
+            .catch(e => {
+                setAddingQuizError(true)
+            })
     }
 
     return (
@@ -55,12 +59,19 @@ function HomePage() {
             </div>
 
             {addingQuiz && (
+                <>
                 <Form title='Add quiz'>
                     <TextInput name='title' label='Title' value={title} setter={setTitle}/>
                     <TextInput name='description' label='Description' value={description} setter={setDescription}/>
                     <Button action={addQuiz}>Submit</Button>
                 </Form>
+                {
+                    addingQuizError &&
+                    <Error text={"Unable to add Quiz"} />
+                }
+                </>
             )}
+
 
             {
                 quizError &&
