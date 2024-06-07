@@ -3,10 +3,12 @@ import {useState} from "react";
 import Button from "../../../components/Button/index.jsx";
 import clone from "../../../functions/clone.js";
 import H2 from "../../../components/Text/H2/index.jsx";
+import Error from "../../../components/Error/index.jsx";
 
 function QuestionDisplay({id, questions}) {
     const [selectedAnswers, setSelectedAnswers] = useState([])
     const [results, setResults] = useState(false)
+    const [resultsError, setResultsError] = useState(false)
 
     const alreadySelected = (answers, questionId, answerId) => {
         let answered = false
@@ -48,6 +50,10 @@ function QuestionDisplay({id, questions}) {
             .then(res => res.json())
             .then(data => {
                 setResults(data.data)
+                setResultsError(false)
+            })
+            .catch(e => {
+                setResultsError(true)
             })
     }
 
@@ -75,6 +81,11 @@ function QuestionDisplay({id, questions}) {
                     <p>{results.points} / {results.available_points} points</p>
                 </div>
             )}
+
+            {
+                resultsError &&
+                <Error text={"Unable to calculate results"} />
+            }
 
         </section>
     )

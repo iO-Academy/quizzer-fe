@@ -7,15 +7,18 @@ import EditableQuestion from "./EditableQuestion/index.jsx";
 import Button from "../../components/Button/index.jsx";
 import Form from "../../components/Form/index.jsx";
 import TextInput from "../../components/Form/TextInput/index.jsx";
+import Error from "../../components/Error/index.jsx";
 
 function EditQuizPage() {
     const {id} = useParams()
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [questions, setQuestions] = useState([])
+    const [quizError, setQuizError] = useState(false)
 
     const [editingQuiz, setEditingQuiz] = useState(false)
     const [addingQuestion, setAddingQuestion] = useState(false)
+    const [editingError, setEditingError] = useState(false)
 
     const [editedName, setEditedName] = useState(name)
     const [editedDescription, setEditedDescription] = useState(description)
@@ -35,6 +38,10 @@ function EditQuizPage() {
             .then(data => {
                 getQuizData()
                 setEditingQuiz(false)
+                setEditingError(false)
+            })
+            .catch(e => {
+                setEditingError(true)
             })
     }
 
@@ -47,6 +54,10 @@ function EditQuizPage() {
                 setDescription(data.data.description)
                 setEditedDescription(data.data.description)
                 setQuestions(data.data.questions)
+                setQuizError(false)
+            })
+            .catch(e => {
+                setQuizError(true)
             })
     }
 
@@ -54,6 +65,10 @@ function EditQuizPage() {
 
     return (
         <Container>
+            {
+                quizError &&
+                <Error text={"Unable to find quiz"} />
+            }
             <div className='flex justify-between mb-5'>
                 <H2>Editing {name}</H2>
                 <div className='flex gap-2'>
@@ -80,6 +95,10 @@ function EditQuizPage() {
                                    setter={setEditedDescription}/>
                         <Button action={editQuiz}>Submit</Button>
                     </Form>
+                    {
+                        editingError &&
+                        <Error text={"Unable to edit quiz"} />
+                    }
                 </div>
 
             )}

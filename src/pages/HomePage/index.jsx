@@ -45,6 +45,7 @@ function HomePage() {
             .then(data => {
                 getQuizzes()
                 setAddingQuiz(false)
+                setAddingQuizError(false)
             })
             .catch(e => {
                 setAddingQuizError(true)

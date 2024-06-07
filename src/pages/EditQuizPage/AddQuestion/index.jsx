@@ -4,11 +4,13 @@ import Button from "../../../components/Button/index.jsx";
 import Form from "../../../components/Form/index.jsx";
 import TextInput from "../../../components/Form/TextInput/index.jsx";
 import NumberInput from "../../../components/Form/NumberInput/index.jsx";
+import Error from "../../../components/Error/index.jsx";
 
 function AddQuestion({quizId, refresh, closer}) {
     const [question, setQuestion] = useState('')
     const [hint, setHint] = useState('')
     const [points, setPoints] = useState(1)
+    const [error, setError] = useState(false)
 
     const add = () => {
         const data = {
@@ -31,9 +33,13 @@ function AddQuestion({quizId, refresh, closer}) {
             .then(res => res.json())
             .then(data => {
                 refresh()
+                setError(false)
                 setQuestion('')
                 setHint('')
                 setPoints(1)
+            })
+            .catch(e => {
+                setError(true)
             })
     }
 
@@ -49,6 +55,10 @@ function AddQuestion({quizId, refresh, closer}) {
 
                 <Button action={add}>Add</Button>
             </Form>
+            {
+                error &&
+                <Error text={"Unable to add question"} />
+            }
         </div>
     )
 }

@@ -5,11 +5,14 @@ import EditableAnswer from "../EditableAnswer/index.jsx";
 import Form from "../../../components/Form/index.jsx";
 import TextInput from "../../../components/Form/TextInput/index.jsx";
 import NumberInput from "../../../components/Form/NumberInput/index.jsx";
+import Error from "../../../components/Error/index.jsx";
 
 function EditableQuestion({id, number, question, hint, points, answers, refresh}) {
     const [editing, setEditing] = useState(false)
     const [addingAnswer, setAddingAnswer] = useState(false)
     const [editingQuestionDetails, setEditingQuestionDetails] = useState(false)
+    const [editingQuestionError, setEditingQuestionError] = useState(false)
+    const [deleteQuestionError, setDeleteQuestionError] = useState(false)
 
     const [editedQuestion, setEditedQuestion] = useState(question)
     const [editedHint, setEditedHint] = useState(hint)
@@ -25,6 +28,10 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
             .then(res => res.json())
             .then(data => {
                 refresh()
+                setDeleteQuestionError(false)
+            })
+            .catch(e => {
+                setDeleteQuestionError(true)
             })
     }
 
@@ -52,6 +59,10 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
                 setEditedHint(hint)
                 setEditedPoints(points)
                 setEditingQuestionDetails(false)
+                setEditingQuestionError(false)
+            })
+            .catch(e => {
+                setEditingQuestionError(true)
             })
     }
 
@@ -82,10 +93,15 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
                             setAddingAnswer(false)
                         }}>Edit question</Button>
                     </div>
+                    {
+                        deleteQuestionError &&
+                        <Error text={"Unable to delete question"} />
+                    }
 
                     {addingAnswer && <AddAnswer question_id={id} refresh={refresh} closer={() => setAddingAnswer(false)}/>}
 
                     {editingQuestionDetails && (
+                        <>
                         <Form title='Edit question' closer={() => setEditingQuestionDetails(false)}>
                             <TextInput name='question' label='Question' value={editedQuestion}
                                        setter={setEditedQuestion}/>
@@ -94,6 +110,11 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
 
                             <Button action={editQuestion}>Submit</Button>
                         </Form>
+                            {
+                                editingQuestionError &&
+                                <Error text={"Unable to edit question"} />
+                            }
+                        </>
                     )}
 
                     <div className='mt-5'>
