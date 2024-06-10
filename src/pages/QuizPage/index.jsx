@@ -4,6 +4,7 @@ import QuestionDisplay from "./QuestionDisplay/index.jsx";
 import H1 from "../../components/Text/H1/index.jsx";
 import Container from "../../components/Container/index.jsx";
 import Error from "../../components/Error/index.jsx";
+import handleResponse from "../../functions/response.js";
 
 function QuizPage() {
     const {id} = useParams();
@@ -14,7 +15,7 @@ function QuizPage() {
 
     useEffect(() => {
         fetch(`http://localhost:8000/api/quizzes/${id}`)
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 setName(data.data.name)
                 setDescription(data.data.description)

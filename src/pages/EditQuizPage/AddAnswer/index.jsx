@@ -4,6 +4,7 @@ import Form from "../../../components/Form/index.jsx";
 import TextInput from "../../../components/Form/TextInput/index.jsx";
 import CheckboxInput from "../../../components/Form/CheckboxInput/index.jsx";
 import Error from "../../../components/Error/index.jsx";
+import handleResponse from "../../../functions/response.js";
 
 function AddAnswer({question_id, refresh, closer}) {
     const [answer, setAnswer] = useState('')
@@ -22,7 +23,7 @@ function AddAnswer({question_id, refresh, closer}) {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 refresh()
                 setAnswer('')

@@ -4,6 +4,7 @@ import Button from "../../../components/Button/index.jsx";
 import clone from "../../../functions/clone.js";
 import H2 from "../../../components/Text/H2/index.jsx";
 import Error from "../../../components/Error/index.jsx";
+import handleResponse from "../../../functions/response.js";
 
 function QuestionDisplay({id, questions}) {
     const [selectedAnswers, setSelectedAnswers] = useState([])
@@ -47,7 +48,7 @@ function QuestionDisplay({id, questions}) {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 setResults(data.data)
                 setResultsError(false)

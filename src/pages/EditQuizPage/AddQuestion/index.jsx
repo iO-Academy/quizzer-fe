@@ -5,6 +5,7 @@ import Form from "../../../components/Form/index.jsx";
 import TextInput from "../../../components/Form/TextInput/index.jsx";
 import NumberInput from "../../../components/Form/NumberInput/index.jsx";
 import Error from "../../../components/Error/index.jsx";
+import handleResponse from "../../../functions/response.js";
 
 function AddQuestion({quizId, refresh, closer}) {
     const [question, setQuestion] = useState('')
@@ -30,7 +31,7 @@ function AddQuestion({quizId, refresh, closer}) {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 refresh()
                 setError(false)

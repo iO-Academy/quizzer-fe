@@ -8,6 +8,7 @@ import Button from "../../components/Button/index.jsx";
 import Form from "../../components/Form/index.jsx";
 import TextInput from "../../components/Form/TextInput/index.jsx";
 import Error from "../../components/Error/index.jsx";
+import handleResponse from "../../functions/response.js";
 
 function EditQuizPage() {
     const {id} = useParams()
@@ -34,7 +35,7 @@ function EditQuizPage() {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 getQuizData()
                 setEditingQuiz(false)
@@ -47,7 +48,7 @@ function EditQuizPage() {
 
     const getQuizData = () => {
         fetch(`http://localhost:8000/api/quizzes/${id}`)
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 setName(data.data.name)
                 setEditedName(data.data.name)

@@ -3,6 +3,7 @@ import {useState} from "react";
 import Form from "../../../components/Form/index.jsx";
 import TextInput from "../../../components/Form/TextInput/index.jsx";
 import Error from "../../../components/Error/index.jsx";
+import handleResponse from "../../../functions/response.js";
 
 function EditableAnswer({id, answer, correct, refresh}) {
     const [editing, setEditing] = useState(false)
@@ -22,7 +23,7 @@ function EditableAnswer({id, answer, correct, refresh}) {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 refresh()
                 setEditing(false)
@@ -39,7 +40,7 @@ function EditableAnswer({id, answer, correct, refresh}) {
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 refresh()
             }).catch(e => {

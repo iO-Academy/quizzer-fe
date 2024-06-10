@@ -6,6 +6,7 @@ import Form from "../../../components/Form/index.jsx";
 import TextInput from "../../../components/Form/TextInput/index.jsx";
 import NumberInput from "../../../components/Form/NumberInput/index.jsx";
 import Error from "../../../components/Error/index.jsx";
+import handleResponse from "../../../functions/response.js";
 
 function EditableQuestion({id, number, question, hint, points, answers, refresh}) {
     const [editing, setEditing] = useState(false)
@@ -25,7 +26,7 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 refresh()
                 setDeleteQuestionError(false)
@@ -52,7 +53,7 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
                 "Content-Type": "application/json",
             },
         })
-            .then(res => res.json())
+            .then(handleResponse)
             .then(data => {
                 refresh()
                 setEditedQuestion(question)
