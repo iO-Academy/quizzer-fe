@@ -23,7 +23,8 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
         fetch(`http://localhost:8000/api/questions/${id}`, {
             method: 'DELETE',
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)
@@ -50,7 +51,8 @@ function EditableQuestion({id, number, question, hint, points, answers, refresh}
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)

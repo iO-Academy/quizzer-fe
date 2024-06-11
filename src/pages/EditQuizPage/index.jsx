@@ -32,7 +32,8 @@ function EditQuizPage() {
                 description: editedDescription
             }),
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)

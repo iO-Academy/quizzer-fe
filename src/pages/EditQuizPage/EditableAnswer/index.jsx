@@ -20,7 +20,8 @@ function EditableAnswer({id, answer, correct, refresh}) {
                 correct: editCorrect
             }),
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)
@@ -37,7 +38,8 @@ function EditableAnswer({id, answer, correct, refresh}) {
         fetch(`http://localhost:8000/api/answers/${id}`, {
             method: 'DELETE',
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)

@@ -45,7 +45,8 @@ function QuestionDisplay({id, questions}) {
                 answers: selectedAnswers
             }),
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)

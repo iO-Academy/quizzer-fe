@@ -20,7 +20,8 @@ function AddAnswer({question_id, refresh, closer}) {
                 question_id
             }),
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)

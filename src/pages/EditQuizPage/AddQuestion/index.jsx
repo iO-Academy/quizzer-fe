@@ -28,7 +28,8 @@ function AddQuestion({quizId, refresh, closer}) {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             },
         })
             .then(handleResponse)
